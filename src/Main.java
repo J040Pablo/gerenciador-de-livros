@@ -1,24 +1,58 @@
-public class Main {
+import java.util.Scanner;
 
+public class Main {
     public static void main(String[] args) {
         GerenciadorDeLivros gerenciador = new GerenciadorDeLivros();
-        GerenciadorDeLivros.ListaEncadeada<Livro> listaLivros = gerenciador.new ListaEncadeada<>();
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
 
-        Livro livro1 = new Livro("1984", "George Orwell", 1949);
-        Livro livro2 = new Livro("O Senhor dos Anéis", "J.R.R. Tolkien", 1954);
-        Livro livro3 = new Livro("Dom Casmurro", "Machado de Assis", 1899);
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Adicionar livro");
+            System.out.println("2. Listar livros");
+            System.out.println("3. Ordenar livros por título");
+            System.out.println("4. Buscar livro por título");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
 
-        listaLivros.add(livro1);
-        listaLivros.add(livro2);
-        listaLivros.add(livro3);
+            switch (opcao) {
+                case 1:
+                    System.out.print("Título: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Autor: ");
+                    String autor = scanner.nextLine();
+                    System.out.print("Ano de publicação: ");
+                    int ano = scanner.nextInt();
+                    scanner.nextLine(); // Limpar o buffer
+                    gerenciador.adicionarLivro(new Livro(nome, autor, ano));
+                    break;
+                case 2:
+                    gerenciador.listarLivros();
+                    break;
+                case 3:
+                    gerenciador.ordenarPorTitulo();
+                    System.out.println("Livros ordenados por título.");
+                    break;
+                case 4:
+                    System.out.print("Informe o título do livro: ");
+                    String tituloBusca = scanner.nextLine();
+                    Livro livroEncontrado = gerenciador.buscarLivroPorTitulo(tituloBusca);
+                    if (livroEncontrado != null) {
+                        System.out.println("Livro encontrado: " + livroEncontrado);
+                    } else {
+                        System.out.println("Livro não encontrado.");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
 
-        System.out.println("Elemento na posição 1: " + listaLivros.get(1));
-        listaLivros.remove(1);
-        System.out.println("Tamanho da lista: " + listaLivros.size());
-
-        // Exibir todos os livros restantes
-        for (int i = 0; i < listaLivros.size(); i++) {
-            System.out.println(listaLivros.get(i));
-        }
+        scanner.close();
     }
 }

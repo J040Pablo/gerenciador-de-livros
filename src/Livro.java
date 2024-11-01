@@ -4,7 +4,6 @@ public class Livro {
     private String autor;
     private int anoDePublicacao;
 
-
     public Livro(String nome, String autor, int anoDePublicacao) {
         this.nome = nome;
         this.autor = autor;
@@ -15,7 +14,7 @@ public class Livro {
         return nome;
     }
 
-    public String getAutor()  {
+    public String getAutor() {
         return autor;
     }
 
